@@ -2,7 +2,7 @@ const { calculateProfitLoss } = require('../../components/ProfitLossCalculator.j
 
 describe('ProfitLossCalculator', () => {
   test('should calculate profit correctly when current rate is higher than purchase rate', () => {
-    const result = calculateProfitLoss(1200, 1000, 1300);
+    const result = calculateProfitLoss(1200, 1, 1300); // 1달러 기준
     
     expect(result.profit).toBe(100);
     expect(result.profitRate).toBe(8.33);
@@ -11,7 +11,7 @@ describe('ProfitLossCalculator', () => {
   });
 
   test('should calculate loss correctly when current rate is lower than purchase rate', () => {
-    const result = calculateProfitLoss(1300, 1000, 1200);
+    const result = calculateProfitLoss(1300, 1, 1200); // 1달러 기준
     
     expect(result.loss).toBe(100);
     expect(result.lossRate).toBe(7.69);
