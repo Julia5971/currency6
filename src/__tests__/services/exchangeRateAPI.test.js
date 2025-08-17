@@ -1,4 +1,4 @@
-import { fetchExchangeRate } from '../../services/exchangeRateAPI.js';
+const { fetchExchangeRate } = require('../../services/exchangeRateAPI.js');
 
 describe('ExchangeRate API', () => {
   test('should fetch USD to KRW exchange rate', async () => {
