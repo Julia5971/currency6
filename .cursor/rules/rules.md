@@ -171,3 +171,109 @@ src/
 5. **직관적이고 아름다운 UI/UX** 제공
 
 각 단계를 성공적으로 완료하면, 초보자도 쉽게 사용할 수 있는 전문적인 환율 정보 서비스가 완성됩니다!
+
+**1. src/__tests__/services/exchangeRateAPI.test.js:**
+```javascript
+import { fetchExchangeRate } from '../../services/exchangeRateAPI.js';
+
+describe('ExchangeRate API', () => {
+  test('should fetch USD to KRW exchange rate', async () => {
+    const rate = await fetchExchangeRate('USD', 'KRW');
+    expect(rate).toBeDefined();
+    expect(typeof rate).toBe('number');
+    expect(rate).toBeGreaterThan(0);
+  });
+
+  test('should handle invalid currency pair', async () => {
+    await expect(fetchExchangeRate('INVALID', 'KRW')).rejects.toThrow();
+  });
+});
+```
+
+**2. src/services/exchangeRateAPI.js:**
+```javascript
+// ExchangeRate API 서비스
+export async function fetchExchangeRate(fromCurrency, toCurrency) {
+  try {
+    // 1순위 API: ExchangeRate-API
+    const response = await fetch(`https://api.exchangerate-api.com/v4/latest/${fromCurrency}`);
+    
+    if (!response.ok) {
+      throw new Error(`API 요청 실패: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    const rate = data.rates[toCurrency];
+    
+    if (!rate) {
+      throw new Error(`지원하지 않는 통화: ${toCurrency}`);
+    }
+    
+    return rate;
+  } catch (error) {
+    console.error('환율 조회 실패:', error);
+    throw error;
+  }
+}
+```
+
+**3. index.html:**
+```html
+<code_block_to_apply_changes_from>
+```
+
+**4. src/main.js:**
+```javascript
+import { fetchExchangeRate } from './services/exchangeRateAPI.js';
+
+// 전역 함수로 등록 (HTML에서 호출하기 위해)
+window.runTests = async function() {
+    const resultsDiv = document.getElementById('testResults');
+    resultsDiv.innerHTML = '테스트 실행 중...';
+    
+    try {
+        // 간단한 테스트 실행
+        const rate = await fetchExchangeRate('USD', 'KRW');
+        
+        if (rate && typeof rate === 'number' && rate > 0) {
+            resultsDiv.innerHTML = `
+                ✅ 테스트 통과!<br>
+                USD → KRW 환율: ${rate.toFixed(2)}
+            `;
+        } else {
+            resultsDiv.innerHTML = '❌ 테스트 실패: 예상과 다른 결과';
+        }
+    } catch (error) {
+        resultsDiv.innerHTML = `❌ 테스트 실패: ${error.message}`;
+    }
+};
+
+window.testExchangeRate = async function() {
+    const resultDiv = document.getElementById('exchangeRateResult');
+    resultDiv.innerHTML = '환율 조회 중...';
+    
+    try {
+        const rate = await fetchExchangeRate('USD', 'KRW');
+        resultDiv.innerHTML = `
+            💱 USD → KRW 환율: ${rate.toFixed(2)}<br>
+            📅 조회 시간: ${new Date().toLocaleString()}
+        `;
+    } catch (error) {
+        resultDiv.innerHTML = `❌ 오류: ${error.message}`;
+    }
+};
+```
+
+이제 파일들이 제대로 작성되었습니다! 
+
+**테스트 실행:**
+```bash
+npm test
+```
+
+**웹 서버 실행:**
+```bash
+npm run dev
+```
+
+이제 웹에서 환율 서비스를 테스트할 수 있습니다! 🎉

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실시간 환율 정보 및 분석 서비스</title>
+    <style>
+        body {
+            background-color: #FFEB3B;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+            max-width: 1200px;
+            /* 정중앙 정렬을 위한 추가 설정 */
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            transform: translate(-50%, -25%);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1> 실시간 환율 정보 및 분석 서비스</h1>
+        
+        <div class="test-section">
+            <h2>🧪 TDD 테스트 결과</h2>
+            <button onclick="runTests()">테스트 실행</button>
+            <div id="testResults" class="result"></div>
+        </div>
+        
+        <div class="test-section">
+            <h2>💱 환율 조회 테스트</h2>
+            <button onclick="testExchangeRate()">USD → KRW 환율 조회</button>
+            <div id="exchangeRateResult" class="result"></div>
+        </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>
