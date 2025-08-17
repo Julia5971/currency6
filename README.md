@@ -118,3 +118,78 @@ VITE_CURRENCY_API_BASE_URL=https://api.currencyapi.com/v3
 ## 📞 문의
 
 프로젝트에 대한 문의사항이 있으시면 이슈를 생성해 주세요.
+
+```
+
+커밋이 완료되었습니다! 🎉
+
+이제 Vanilla JavaScript 기반으로 프로젝트를 생성할 준비가 되었습니다. 
+
+다음 단계로 Vite를 사용해서 프로젝트를 생성하시겠습니까?
+
+# Jest 및 필요한 패키지들 설치
+npm install --save-dev jest @testing-library/jest-dom jsdom
+
+# Jest 설정 파일 수동 생성
+
+1. **jest.config.js:**
+```javascript
+module.exports = {
+  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.js'],
+  moduleNameMapping: {
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
+  },
+  testMatch: ['**/__tests__/**/*.js', '**/?(*.)+(spec|test).js']
+};
+```
+
+2. **package.json에 스크립트 추가:**
+```json
+{
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  }
+}
+```
+
+이렇게 수동으로 설정하는 것이 더 깔끔할 것 같습니다. 
+
+진행하시겠습니까?
+
+**jest.config.js 내용:**
+```javascript
+module.exports = {
+  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/src/setupTests.js'],
+  moduleNameMapping: {
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
+  },
+  testMatch: ['**/__tests__/**/*.js', '**/?(*.)+(spec|test).js']
+};
+```
+
+**src/setupTests.js 내용:**
+```javascript
+import '@testing-library/jest-dom';
+```
+
+**package.json에 테스트 스크립트 추가:**
+```json
+{
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  }
+}
+```
+
+이제 Jest 환경이 완성되었습니다! 
+
+**테스트 실행 확인:**
+```bash
+npm test
+```
+
+첫 번째 테스트를 작성할 준비가 되었습니다. 환율 API 훅부터 테스트를 시작하시겠습니까?

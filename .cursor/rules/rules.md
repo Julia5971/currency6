@@ -2,6 +2,8 @@
 
 ## 📋 개발 원칙
 
+###스텝 바이 스텝 재확인 작업을 거칠거야 
+
 ### TDD (Test-Driven Development) 필수 준수
 - **Red → Green → Refactor** 사이클을 엄격히 따름
 - 각 기능 구현 전 반드시 실패하는 테스트 먼저 작성
