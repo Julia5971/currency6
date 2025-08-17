@@ -1,4 +1,5 @@
-const { fetchExchangeRate } = require('./services/exchangeRateAPI.js');
+import { fetchExchangeRate } from './services/exchangeRateAPI.js';
+import { renderChart } from './components/ExchangeRateChart.js';
 
 // 전역 함수로 등록 (HTML에서 호출하기 위해)
 window.runTests = async function() {
@@ -34,5 +35,47 @@ window.testExchangeRate = async function() {
         `;
     } catch (error) {
         resultDiv.innerHTML = `❌ 오류: ${error.message}`;
+    }
+};
+
+window.renderExchangeRateChart = async function() {
+    const chartContainer = document.getElementById('chartContainer');
+    chartContainer.innerHTML = '차트 렌더링 중...';
+    
+    try {
+        // Canvas 요소가 존재하는지 확인
+        let canvas = document.getElementById('exchangeRateChart');
+        
+        // Canvas 요소가 없다면 생성
+        if (!canvas) {
+            console.log('Canvas 요소를 생성합니다...');
+            canvas = document.createElement('canvas');
+            canvas.id = 'exchangeRateChart';
+            canvas.width = 800;
+            canvas.height = 400;
+            canvas.style.display = 'block';
+            canvas.style.margin = '0 auto';
+            chartContainer.appendChild(canvas);
+        }
+        
+        // 샘플 데이터로 차트 렌더링
+        const chartData = [
+            { date: '2025-08-15', rate: 1380 },
+            { date: '2025-08-16', rate: 1385 },
+            { date: '2025-08-17', rate: 1387.78 }
+        ];
+        
+        const chart = renderChart('exchangeRateChart', chartData);
+        
+        // 차트 렌더링 후 성공 메시지 추가
+        const successMsg = document.createElement('div');
+        successMsg.innerHTML = '✅ 차트가 성공적으로 렌더링되었습니다!';
+        successMsg.style.color = 'green';
+        successMsg.style.marginTop = '10px';
+        chartContainer.appendChild(successMsg);
+        
+    } catch (error) {
+        console.error('차트 렌더링 오류:', error);
+        chartContainer.innerHTML = `❌ 차트 렌더링 실패: ${error.message}`;
     }
 };

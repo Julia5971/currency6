@@ -1,9 +1,14 @@
-const Chart = require('chart.js/auto');
+import Chart from 'chart.js/auto';
 
-function renderChart(containerId, data) {
-  const ctx = document.getElementById(containerId);
+export function renderChart(containerId, data) {
+  // canvas 요소 직접 사용
+  const canvas = document.getElementById('exchangeRateChart');
   
-  return new Chart(ctx, {
+  if (!canvas) {
+    throw new Error('Canvas 요소를 찾을 수 없습니다');
+  }
+  
+  return new Chart(canvas, {
     type: 'line',
     data: {
       labels: data.map(item => item.date),
@@ -24,5 +29,3 @@ function renderChart(containerId, data) {
     }
   });
 }
-
-module.exports = { renderChart };

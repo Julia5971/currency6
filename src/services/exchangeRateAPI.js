@@ -1,5 +1,5 @@
 // ExchangeRate API 서비스
-async function fetchExchangeRate(fromCurrency, toCurrency) {
+export async function fetchExchangeRate(fromCurrency, toCurrency) {
   try {
     // 1순위 API: ExchangeRate-API
     const response = await fetch(`https://api.exchangerate-api.com/v4/latest/${fromCurrency}`);
@@ -21,5 +21,3 @@ async function fetchExchangeRate(fromCurrency, toCurrency) {
     throw error;
   }
 }
-
-module.exports = { fetchExchangeRate };

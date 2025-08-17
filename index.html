@@ -65,8 +65,29 @@
             <button onclick="testExchangeRate()">USD → KRW 환율 조회</button>
             <div id="exchangeRateResult" class="result"></div>
         </div>
+        
+        <!-- 새로운 차트 섹션 추가 -->
+        <div class="test-section">
+            <h2>📊 환율 차트</h2>
+            <button onclick="renderExchangeRateChart()">환율 차트 표시</button>
+            <div id="chartContainer" style="width: 100%; height: 400px; margin-top: 20px; border: 1px solid #ddd; background: #f9f9f9;">
+                <canvas id="exchangeRateChart" width="800" height="400" style="display: block; margin: 0 auto;"></canvas>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2> JavaScript 테스트</h2>
+            <button onclick="testFunction()">JavaScript 테스트</button>
+        </div>
     </div>
 
     <script type="module" src="/src/main.js"></script>
+    <script>
+// 간단한 테스트 함수
+window.testFunction = function() {
+    alert('JavaScript가 작동합니다!');
+    console.log('JavaScript 함수 호출됨');
+};
+</script>
 </body>
 </html>
