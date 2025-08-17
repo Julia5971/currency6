@@ -3,6 +3,11 @@ const { renderChartGrid } = require('../../components/ExchangeRateChart.js');
 const { calculateProfitLoss } = require('../../components/ProfitLossCalculator.js');
 
 describe('Full Application Integration', () => {
+  beforeEach(() => {
+    // 각 테스트 전에 fetch 모킹 초기화
+    global.resetFetchMock();
+  });
+
   test('should complete user flow: fetch rates → display charts → calculate profit/loss', async () => {
     // 1단계: 환율 데이터 가져오기
     const usdRate = await fetchExchangeRate('USD', 'KRW');
@@ -32,8 +37,9 @@ describe('Full Application Integration', () => {
 
   test('should handle API failures gracefully and maintain app stability', async () => {
     // API 실패 시뮬레이션
-    const mockFetch = jest.fn().mockRejectedValue(new Error('Network error'));
-    global.fetch = mockFetch;
+    global.fetch.mockImplementationOnce(() => 
+      Promise.reject(new Error('Network error'))
+    );
     
     try {
       await fetchExchangeRate('USD', 'KRW');
