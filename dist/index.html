@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실시간 환율 정보 및 분석 서비스</title>
+    <style>
+        body {
+            background-color: #FFEB3B;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        body .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+            max-width: 1200px !important;
+            width: 1200px;  /* 고정 너비 추가 */
+            /* 정중앙 정렬을 위한 추가 설정 */
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            transform: translate(-50%, -25%);
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 3px;
+        }
+    </style>
+  <script type="module" crossorigin src="/assets/index-Dcsff7Pr.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/vendor-Co7ClN-s.js">
+  <link rel="modulepreload" crossorigin href="/assets/app-DzxOC35N.js">
+</head>
+<body>
+    <div class="container">
+        <h1> 실시간 환율 정보 및 분석 서비스</h1>
+        
+        <!-- TDD 테스트 결과 섹션 수정 -->
+        <div class="test-section">
+            <h2>▶ TDD 테스트 결과</h2>
+            <button onclick="runTests()">테스트 실행</button>
+            <div id="testResults" class="result"></div>
+        </div>
+        
+        <!-- 환율 조회 테스트 섹션 -->
+        <div class="test-section">
+            <h2>💱 환율 조회 테스트</h2>
+            <button onclick="testExchangeRate()">USD → KRW 환율 조회</button>
+            <div id="exchangeRateResult" class="result"></div>
+        </div>
+        
+        <!-- 환율차트 섹션 -->
+        <div class="test-section">
+            <h2>📊 환율차트 (USD, EUR, JPY, CNY)</h2>
+            <button onclick="renderChartGrid()">USD, EUR, JPY, CNY 환율 차트 표시</button>
+            <div id="chartContainer" style="width: 100%; height: 650px; margin-top: 20px; border: 1px solid #ddd; background: #f9f9f9; overflow: hidden;">
+                <!-- JavaScript에서 동적 생성 -->
+            </div>
+        </div>
+
+        <!-- 환차손익 계산기 섹션 추가 (환율차트 섹션 아래에) -->
+        <div class="test-section">
+            <h2>🧮 환차손익 계산기</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                <div>
+                    <label for="purchaseRate" style="display: block; margin-bottom: 8px; font-weight: bold;">매입 환율 (원)</label>
+                    <input type="number" id="purchaseRate" placeholder="1200" style="width: 100%; height: 40px; border-radius: 6px; border: 1px solid #ddd; padding: 8px; font-size: 16px;">
+                </div>
+                <div>
+                    <label for="amount" style="display: block; margin-bottom: 8px; font-weight: bold;">환전 금액 (달러)</label>
+                    <input type="number" id="amount" placeholder="1000" style="width: 100%; height: 40px; border-radius: 6px; border: 1px solid #ddd; padding: 8px; font-size: 16px;">
+                </div>
+            </div>
+            <button onclick="calculateProfitLoss()" style="background: #FFEB3B; color: #333; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; width: 100%;">계산하기</button>
+            <div id="profitLossResult" class="result" style="margin-top: 20px;"></div>
+        </div>
+
+        <!-- JavaScript 테스트 섹션 제거됨 -->
+    </div>
+
+    <script>
+// 간단한 테스트 함수
+window.testFunction = function() {
+    alert('JavaScript가 작동합니다!');
+    console.log('JavaScript 함수 호출됨');
+};

@@ -1,12 +1,20 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  server: {
-    port: 5173
-  },
   build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
     rollupOptions: {
-      external: ['chart.js']
-    }
+      output: {
+        manualChunks: {
+          vendor: ['chart.js'],
+          app: ['./src/main.js']
+        }
+      }
+    },
+    chunkSizeWarningLimit: 1000
+  },
+  define: {
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
   }
 })
