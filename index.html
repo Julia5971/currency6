@@ -54,31 +54,30 @@
     <div class="container">
         <h1> 실시간 환율 정보 및 분석 서비스</h1>
         
+        <!-- TDD 테스트 결과 섹션 수정 -->
         <div class="test-section">
-            <h2>🧪 TDD 테스트 결과</h2>
+            <h2>▶ TDD 테스트 결과</h2>
             <button onclick="runTests()">테스트 실행</button>
             <div id="testResults" class="result"></div>
         </div>
         
+        <!-- 환율 조회 테스트 섹션 -->
         <div class="test-section">
             <h2>💱 환율 조회 테스트</h2>
             <button onclick="testExchangeRate()">USD → KRW 환율 조회</button>
             <div id="exchangeRateResult" class="result"></div>
         </div>
         
-        <!-- 새로운 차트 섹션 추가 -->
+        <!-- 환율차트 섹션 -->
         <div class="test-section">
-            <h2>📊 환율 차트</h2>
-            <button onclick="renderExchangeRateChart()">환율 차트 표시</button>
-            <div id="chartContainer" style="width: 100%; height: 400px; margin-top: 20px; border: 1px solid #ddd; background: #f9f9f9;">
-                <canvas id="exchangeRateChart" width="800" height="400" style="display: block; margin: 0 auto;"></canvas>
+            <h2>📊 환율차트 (USD, EUR, JPY, CNY)</h2>
+            <button onclick="renderChartGrid()">USD, EUR, JPY, CNY 환율 차트 표시</button>
+            <div id="chartContainer" style="width: 100%; height: 650px; margin-top: 20px; border: 1px solid #ddd; background: #f9f9f9; overflow: hidden;">
+                <!-- JavaScript에서 동적 생성 -->
             </div>
         </div>
 
-        <div class="test-section">
-            <h2> JavaScript 테스트</h2>
-            <button onclick="testFunction()">JavaScript 테스트</button>
-        </div>
+        <!-- JavaScript 테스트 섹션 제거됨 -->
     </div>
 
     <script type="module" src="/src/main.js"></script>
@@ -88,6 +87,3 @@ window.testFunction = function() {
     alert('JavaScript가 작동합니다!');
     console.log('JavaScript 함수 호출됨');
 };
-</script>
-</body>
-</html>
