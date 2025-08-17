@@ -14,5 +14,10 @@ describe('Chart Container', () => {
     const chart = renderChart('chartContainer', chartData);
     expect(chart).toBeDefined();
     expect(document.getElementById('chartContainer')).toBeTruthy();
+    
+    // canvas가 생성되었는지 확인
+    const canvas = document.querySelector('#chartContainer canvas');
+    expect(canvas).toBeTruthy();
+    expect(canvas.id).toBe('exchangeRateChart');
   });
 });

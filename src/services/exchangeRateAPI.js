@@ -1,11 +1,16 @@
 // ExchangeRate API 서비스
 export async function fetchExchangeRate(fromCurrency, toCurrency) {
   try {
+    // 입력 검증
+    if (!fromCurrency || !toCurrency) {
+      throw new Error('통화 코드를 입력해주세요');
+    }
+    
     // 1순위 API: ExchangeRate-API
     const response = await fetch(`https://api.exchangerate-api.com/v4/latest/${fromCurrency}`);
     
     if (!response.ok) {
-      throw new Error(`API 요청 실패: ${response.status}`);
+      throw new Error(`API 요청 실패: ${response.status} ${response.statusText}`);
     }
     
     const data = await response.json();
