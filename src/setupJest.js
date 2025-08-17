@@ -30,6 +30,33 @@ global.fetch.mockImplementation((url) => {
   });
 });
 
+// 테스트에서 fetch 모킹을 재설정할 수 있도록 export
+global.resetFetchMock = () => {
+  global.fetch.mockClear();
+  global.fetch.mockImplementation((url) => {
+    const fromCurrency = url.split('/').pop();
+    if (fromCurrency === 'INVALID' || fromCurrency === '') {
+      return Promise.resolve({
+        ok: false,
+        status: 404,
+        statusText: 'Not Found'
+      });
+    }
+    return Promise.resolve({
+      ok: true,
+      json: () => Promise.resolve({
+        rates: {
+          KRW: 1387.78,
+          USD: 1,
+          EUR: 0.85,
+          JPY: 110.5,
+          CNY: 6.45
+        }
+      })
+    });
+  });
+};
+
 // Chart.js 모킹
 global.Chart = jest.fn().mockImplementation(() => ({
   data: {

@@ -1,5 +1,6 @@
 import { fetchExchangeRate } from './services/exchangeRateAPI.js';
 import { renderChart, renderChartGrid } from './components/ExchangeRateChart.js';
+import { calculateProfitLoss } from './components/ProfitLossCalculator.js';
 
 // 불필요한 testFunction 제거
 // window.testFunction = function() { ... } 삭제
@@ -68,5 +69,57 @@ window.runTests = async function() {
     } catch (error) {
         console.error('테스트 실행 오류:', error);
         resultsDiv.innerHTML = `❌ 테스트 실패: ${error.message}`;
+    }
+};
+
+// 환차손익 계산 함수 추가
+window.calculateProfitLoss = async function() {
+    const purchaseRate = parseFloat(document.getElementById('purchaseRate').value);
+    const amount = parseFloat(document.getElementById('amount').value);
+    
+    const resultDiv = document.getElementById('profitLossResult');
+    
+    // 입력 검증
+    if (!purchaseRate || !amount) {
+        resultDiv.innerHTML = '<div style="color: #DC3545; padding: 15px; background: #F8D7DA; border-radius: 6px;">❌ 매입 환율과 환전 금액을 모두 입력해주세요.</div>';
+        return;
+    }
+    
+    try {
+        // 현재 USD → KRW 환율 가져오기
+        const currentRate = await fetchExchangeRate('USD', 'KRW');
+        
+        // 환차손익 계산
+        const result = calculateProfitLoss(purchaseRate, amount, currentRate);
+        
+        // 결과 표시
+        let resultHTML = '';
+        if (result.status === 'profit') {
+            resultHTML = `<div style="color: #28A745; font-size: 18px; font-weight: bold; padding: 15px; background: #D4EDDA; border-radius: 6px; text-align: center;">${result.message}</div>`;
+        } else if (result.status === 'loss') {
+            resultHTML = `<div style="color: #DC3545; font-size: 18px; font-weight: bold; padding: 15px; background: #F8D7DA; border-radius: 6px; text-align: center;">${result.message}</div>`;
+        } else {
+            resultHTML = `<div style="color: #6C757D; font-size: 18px; font-weight: bold; padding: 15px; background: #E2E3E5; border-radius: 6px; text-align: center;">${result.message}</div>`;
+        }
+        
+        // 상세 정보 추가
+        resultHTML += `
+            <div style="margin-top: 15px; padding: 20px; background: #F8F9FA; border-radius: 6px; border: 1px solid #E9ECEF;">
+                <h4 style="margin-top: 0; color: #495057;">📊 계산 상세 정보</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                    <div><strong>매입 환율:</strong> ${purchaseRate.toLocaleString()}원</div>
+                    <div><strong>환전 금액:</strong> ${amount.toLocaleString()}달러</div>
+                    <div><strong>현재 환율:</strong> ${currentRate.toLocaleString()}원</div>
+                    <div><strong>매입 가치:</strong> ${(purchaseRate * amount).toLocaleString()}원</div>
+                    <div><strong>현재 가치:</strong> ${(currentRate * amount).toLocaleString()}원</div>
+                    <div><strong>차이:</strong> ${Math.abs((currentRate - purchaseRate) * amount).toLocaleString()}원</div>
+                </div>
+            </div>
+        `;
+        
+        resultDiv.innerHTML = resultHTML;
+        
+    } catch (error) {
+        resultDiv.innerHTML = `<div style="color: #DC3545; padding: 15px; background: #F8D7DA; border-radius: 6px;">❌ 오류: ${error.message}</div>`;
     }
 };

@@ -77,6 +77,23 @@
             </div>
         </div>
 
+        <!-- 환차손익 계산기 섹션 추가 (환율차트 섹션 아래에) -->
+        <div class="test-section">
+            <h2>🧮 환차손익 계산기</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                <div>
+                    <label for="purchaseRate" style="display: block; margin-bottom: 8px; font-weight: bold;">매입 환율 (원)</label>
+                    <input type="number" id="purchaseRate" placeholder="1200" style="width: 100%; height: 40px; border-radius: 6px; border: 1px solid #ddd; padding: 8px; font-size: 16px;">
+                </div>
+                <div>
+                    <label for="amount" style="display: block; margin-bottom: 8px; font-weight: bold;">환전 금액 (달러)</label>
+                    <input type="number" id="amount" placeholder="1000" style="width: 100%; height: 40px; border-radius: 6px; border: 1px solid #ddd; padding: 8px; font-size: 16px;">
+                </div>
+            </div>
+            <button onclick="calculateProfitLoss()" style="background: #FFEB3B; color: #333; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; width: 100%;">계산하기</button>
+            <div id="profitLossResult" class="result" style="margin-top: 20px;"></div>
+        </div>
+
         <!-- JavaScript 테스트 섹션 제거됨 -->
     </div>
 
