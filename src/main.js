@@ -1,4 +1,4 @@
-import { fetchExchangeRate } from './services/exchangeRateAPI.js';
+const { fetchExchangeRate } = require('./services/exchangeRateAPI.js');
 
 // 전역 함수로 등록 (HTML에서 호출하기 위해)
 window.runTests = async function() {
